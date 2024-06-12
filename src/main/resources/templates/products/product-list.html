@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
       layout:decorate="~{layout}">
 <head>
   <title th:text="${title} ?: 'Product'">Product</title>
@@ -29,7 +30,7 @@
       <th>Price</th>
       <th>Author</th>
       <th>Category Name</th>
-      <th>Actions</th>
+      <th></th>
 
     </tr>
     </thead>
@@ -40,7 +41,7 @@
       <td th:text="${product.price}"></td>
       <td th:text="${product.description}"></td>
       <td th:text="${product.category.name}"></td>
-      <td>
+      <td sec:authorize="hasAuthority('ADMIN')">
         <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn
 btn-success btn-sm">Edit</a>
         <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn
